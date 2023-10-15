@@ -1,0 +1,48 @@
+[2023-10-14T14:27:19.708+0000] {processor.py:157} INFO - Started process (PID=723) to work on /opt/airflow/dags/import pandas as pd.py
+[2023-10-14T14:27:19.709+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/import pandas as pd.py for tasks to queue
+[2023-10-14T14:27:19.711+0000] {logging_mixin.py:151} INFO - [2023-10-14T14:27:19.710+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/import pandas as pd.py
+[2023-10-14T14:27:20.199+0000] {logging_mixin.py:151} INFO - [2023-10-14T14:27:20.178+0000] {dagbag.py:347} ERROR - Failed to import: /opt/airflow/dags/import pandas as pd.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/dagbag.py", line 343, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 843, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/opt/airflow/dags/import pandas as pd.py", line 3, in <module>
+    spotify_df = pd.read_csv("C:/Users/Guatavo/Documents/5toSemestre/airflow/dags/spotify_dataset.csv")
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/parsers/readers.py", line 912, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/parsers/readers.py", line 577, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/parsers/readers.py", line 1407, in __init__
+    self._engine = self._make_engine(f, self.engine)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/parsers/readers.py", line 1661, in _make_engine
+    self.handles = get_handle(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/common.py", line 859, in get_handle
+    handle = open(
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/Guatavo/Documents/5toSemestre/airflow/dags/spotify_dataset.csv'
+[2023-10-14T14:27:20.206+0000] {processor.py:841} WARNING - No viable dags retrieved from /opt/airflow/dags/import pandas as pd.py
+[2023-10-14T14:27:20.260+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/import pandas as pd.py took 0.560 seconds
+[2023-10-14T14:27:50.496+0000] {processor.py:157} INFO - Started process (PID=740) to work on /opt/airflow/dags/import pandas as pd.py
+[2023-10-14T14:27:50.497+0000] {processor.py:829} INFO - Processing file /opt/airflow/dags/import pandas as pd.py for tasks to queue
+[2023-10-14T14:27:50.498+0000] {logging_mixin.py:151} INFO - [2023-10-14T14:27:50.498+0000] {dagbag.py:539} INFO - Filling up the DagBag from /opt/airflow/dags/import pandas as pd.py
+[2023-10-14T14:27:50.875+0000] {logging_mixin.py:151} INFO - [2023-10-14T14:27:50.869+0000] {dagbag.py:347} ERROR - Failed to import: /opt/airflow/dags/import pandas as pd.py
+Traceback (most recent call last):
+  File "/home/airflow/.local/lib/python3.8/site-packages/airflow/models/dagbag.py", line 343, in parse
+    loader.exec_module(new_module)
+  File "<frozen importlib._bootstrap_external>", line 843, in exec_module
+  File "<frozen importlib._bootstrap>", line 219, in _call_with_frames_removed
+  File "/opt/airflow/dags/import pandas as pd.py", line 3, in <module>
+    spotify_df = pd.read_csv("C:/Users/Guatavo/Documents/5toSemestre/airflow/dags/spotify_dataset.csv")
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/parsers/readers.py", line 912, in read_csv
+    return _read(filepath_or_buffer, kwds)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/parsers/readers.py", line 577, in _read
+    parser = TextFileReader(filepath_or_buffer, **kwds)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/parsers/readers.py", line 1407, in __init__
+    self._engine = self._make_engine(f, self.engine)
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/parsers/readers.py", line 1661, in _make_engine
+    self.handles = get_handle(
+  File "/home/airflow/.local/lib/python3.8/site-packages/pandas/io/common.py", line 859, in get_handle
+    handle = open(
+FileNotFoundError: [Errno 2] No such file or directory: 'C:/Users/Guatavo/Documents/5toSemestre/airflow/dags/spotify_dataset.csv'
+[2023-10-14T14:27:50.876+0000] {processor.py:841} WARNING - No viable dags retrieved from /opt/airflow/dags/import pandas as pd.py
+[2023-10-14T14:27:50.916+0000] {processor.py:179} INFO - Processing /opt/airflow/dags/import pandas as pd.py took 0.424 seconds
