@@ -4,7 +4,7 @@ import json
 from transform import drop_unnamed_column,borrar_nulos_spotify,crear_columnas_categoricas,  agregando_la_duracion_en_minutos,  borrar_duplicados
 from transform import no_needed_columns,Transform_winner_column,drop_null_rows
 from  bd_Connection import creating_engine, disposing_engine
-from load_To_Drive import subir_archivo
+
 
 def read_csv():
     # Reading csv file
@@ -119,14 +119,14 @@ def load(**kwargs):
     logging.info( f"data is done to load")
     return df.to_json(orient='records')
 
-def load_drive(**kwargs):
-    logging.info("starting store process")
-    ti = kwargs["ti"]
-    str_data = ti.xcom_pull(task_ids="load")
-    json_data = json.loads(str_data)
-    df = pd.json_normalize(data=json_data)
+# def load_drive(**kwargs):
+#     logging.info("starting store process")
+#     ti = kwargs["ti"]
+#     str_data = ti.xcom_pull(task_ids="load")
+#     json_data = json.loads(str_data)
+#     df = pd.json_normalize(data=json_data)
     
-    ruta_archivo="/opt/airflow/dags/merged_data.csv"
-    id_folder="1WZbU6FwuU5SIMST5uDKXMY-VFXWPNS9n"
-    subir_archivo(ruta_archivo,id_folder)  
-    logging.info( f"data has completed the process")
+#     ruta_archivo="/opt/airflow/dags/merged_data.csv"
+#     id_folder="1WZbU6FwuU5SIMST5uDKXMY-VFXWPNS9n"
+#     subir_archivo(ruta_archivo,id_folder)  
+#     logging.info( f"data has completed the process")

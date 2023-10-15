@@ -29,3 +29,5 @@ def subir_archivo(ruta_archivo,id_folder):
     archivo['title'] = ruta_archivo.split("/")[-1]
     archivo.SetContentFile(ruta_archivo)
     archivo.Upload()
+
+

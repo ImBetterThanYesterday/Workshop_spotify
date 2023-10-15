@@ -2,7 +2,8 @@ from datetime import timedelta
 from airflow import DAG
 from airflow.operators.python import PythonOperator
 from datetime import datetime
-from etl import read_csv, read_db, transform_spotify, grammys_transform_db, merge, load, load_drive
+from etl import read_csv, read_db, transform_spotify, grammys_transform_db, merge, load
+#load_drive
 
 default_args = {
     'owner': 'airflow',
@@ -52,10 +53,11 @@ with DAG(
         python_callable=load,
     )
 
-    load_drive = PythonOperator(
-         task_id='load_drive',
-         python_callable=load_drive,
-     )
+    # load_drive = PythonOperator(
+    #      task_id='load_drive',
+    #      python_callable=load_drive,
+    #  )
     
     read_db >> grammys_transform_db >> merge
-    read_csv >> transform_spotify >> merge >> load >> load_drive
+    read_csv >> transform_spotify >> merge >> load 
+    #>> load_drive
