@@ -29,8 +29,3 @@ def subir_archivo(ruta_archivo,id_folder):
     archivo['title'] = ruta_archivo.split("/")[-1]
     archivo.SetContentFile(ruta_archivo)
     archivo.Upload()
-
-
-if __name__ == "__main__":
-    ruta="C:/Users/Guatavo/Documents/5toSemestre/airflow/dags/merged_data.csv"
-    subir_archivo(ruta,"1WZbU6FwuU5SIMST5uDKXMY-VFXWPNS9n")

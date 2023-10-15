@@ -1,7 +1,7 @@
 import pandas as pd
 import logging
 import json
-from transform import drop_unnamed_column,borrar_nulos_spotify,crear_columnas_categoricas_,  ms_to_min,  borrar_duplicados
+from transform import drop_unnamed_column,borrar_nulos_spotify,crear_columnas_categoricas,  agregando_la_duracion_en_minutos,  borrar_duplicados
 from transform import no_needed_columns,Transform_winner_column,drop_null_rows
 from  bd_Connection import creating_engine, disposing_engine
 from load_To_Drive import subir_archivo
@@ -23,11 +23,13 @@ def transform_spotify(**kwargs):
     # Spotify transformations
     spotify_df = pd.json_normalize(data=json_data)
     # Drop Column unnamed
-    spotify_df=ms_to_min(spotify_df)
-    #borrando columna que no nos proporcionan valor
     spotify_df = drop_unnamed_column(spotify_df)
+    
+    spotify_df=agregando_la_duracion_en_minutos(spotify_df)
+    #borrando columna que no nos proporcionan valor
+    
     # creando columnas categoricas
-    spotify_df = crear_columnas_categoricas_(spotify_df)
+    spotify_df = crear_columnas_categoricas(spotify_df)
     # Borrando Duplicados
     spotify_df = borrar_duplicados(spotify_df)
     # borrando nulos 
@@ -52,7 +54,9 @@ def read_db():
     disposing_engine(engine)
     print(grammys_df)
 
+    print(grammys_df)
     logging.info("database read succesfully")
+
     return grammys_df.to_json(orient='records')
 
 def grammys_transform_db(**kwargs):
@@ -78,7 +82,7 @@ def grammys_transform_db(**kwargs):
     #function transformed
     return grammys_df.to_json(orient='records')
     #print(df.columns)
-    #return df.to_json(orient='records')
+    #return df.to_json(orient='records'
 
 def merge(**kwargs):
     ti = kwargs["ti"]
@@ -94,15 +98,13 @@ def merge(**kwargs):
     json_data = json.loads(str_data)
     grammys_df = pd.json_normalize(data=json_data)
 
-    #df = spotify_df.merge(grammys_df, how='left', left_on='track_name', right_on='nominee')
     df = spotify_df.merge(grammys_df, left_on='track_name', right_on='nominee', how='inner')
-    print(df)
-    print(df.columns)
-    logging.info( f"data is ready to deploy")
+    
+    logging.info( f"data is done to merge")
     return df.to_json(orient='records')
 
 def load(**kwargs):
-    logging.info("starting load proc")
+    logging.info("starting load")
     ti = kwargs["ti"]
     str_data = ti.xcom_pull(task_ids="merge")
     json_data = json.loads(str_data)
@@ -113,17 +115,18 @@ def load(**kwargs):
 
     #Cerramos la conexion a la db
     disposing_engine(engine)
-    df.to_csv("data_result.csv", index=False)
-    logging.info( f"data is ready to deploy")
+    df.to_csv("merged_data.csv", index=False)
+    logging.info( f"data is done to load")
     return df.to_json(orient='records')
 
-def store(**kwargs):
+def load_drive(**kwargs):
     logging.info("starting store process")
     ti = kwargs["ti"]
     str_data = ti.xcom_pull(task_ids="load")
     json_data = json.loads(str_data)
     df = pd.json_normalize(data=json_data)
     
-    ruta="/opt/airflow/dags/merged_data.csv"
-    subir_archivo(ruta,"1WZbU6FwuU5SIMST5uDKXMY-VFXWPNS9n")  
+    ruta_archivo="/opt/airflow/dags/merged_data.csv"
+    id_folder="1WZbU6FwuU5SIMST5uDKXMY-VFXWPNS9n"
+    subir_archivo(ruta_archivo,id_folder)  
     logging.info( f"data has completed the process")

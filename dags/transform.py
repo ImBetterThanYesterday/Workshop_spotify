@@ -4,10 +4,6 @@ def no_needed_columns(df):
     df.drop(['img', 'title', 'published_at', 'updated_at', 'workers'], axis=1, inplace=True)
     return df
 
-def drop_duplicates(df):
-    df = df.drop_duplicates(keep='first')
-    return df
-#-------------------------------------
 def Transform_winner_column(df):
     df['winner'] = df['winner'].map({True: 1, False: 0})
     return df  
@@ -28,7 +24,7 @@ def drop_unnamed_column(df):
     return df
 #duplicados
 def borrar_duplicados(df): 
-    df.drop_duplicates(keep='first')
+    df.drop_duplicates(keep='first',inplace=True)
     return df
 #borra el registro nulo
 def borrar_nulos_spotify(df):
@@ -61,9 +57,7 @@ def categorizar_popularidad(popularidad):
     # Aplica la función para crear la nueva columna 'popularity_category'
     
 
-
-#borrar guion
-def crear_columnas_categoricas_(df):
+def crear_columnas_categoricas(df):
     # Define los umbrales para las categorías
     umbrales_danceability = [0.0, 0.3, 0.7, 1.0]
     umbrales_energy = [0.0, 0.3, 0.7, 1.0]

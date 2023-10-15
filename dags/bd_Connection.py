@@ -1,18 +1,8 @@
-import json
-from sqlalchemy import create_engine, Column, Integer, Float, String, Boolean, Date, Text
+from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
+import json
 
-# Leer config desde el JSON
-# with open('/home/spider/etl/workshop_02/main/db_config.json', 'r') as json_file:
-#     data = json.load(json_file)
-#     usuario = data["user"]
-#     password = data["passwd"]
-#     server = data["server"]
-#     database = data["database"]
-
-# # Configurar la URL de la base de datos para PostgreSQL
-# db_url = f'postgresql+psycopg2://{usuario}:{password}@{server}/{database}'
 db_params = {
     "user": "postgres",
     "password": "mysecretpass",
@@ -24,7 +14,7 @@ db_params = {
 db_url = f'postgresql+psycopg2://{db_params["user"]}:{db_params["password"]}@{db_params["host"]}:{db_params["port"]}/{db_params["database"]}'
 
 
-#no necesario
+
 Base = declarative_base()
 
 # Función para crear el motor (engine)
