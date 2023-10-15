@@ -1,0 +1,12 @@
+# Dependencias 
+json==2.0.9
+logging==0.5.1
+
+pandas==2.0.0
+sqlalchemy==1.4.49
+pydrive2==1.17.0
+
+json5==0.9.6
+logging==0.5.1
+psycopg2==2.9.9
+apache-airflow==2.7.1
