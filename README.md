@@ -23,13 +23,13 @@
 
 ## Ejecución del Proyecto
 
-1. Asegúrate de que Docker esté funcionando y ejecuta el contenedor de PostgreSQL:
+1. Asegúrate de que Docker esté funcionando  el contenedor de Airflow:
 
 ```bash
 docker-compose up -d
-´´´bash
+´´´
 
 2. Asegúrate de que Docker esté funcionando y ejecuta el contenedor de PostgreSQL:
 ```bash
 sudo docker run -d --name=postgres -p 5432:5432 -v postgres-volume:/var/lib/postgresql/data -e POSTGRES_PASSWORD=mysecretpass postgres
-´´´bash
+´´´
