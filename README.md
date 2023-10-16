@@ -1,6 +1,6 @@
 # Workshop_spotify
 
-**Descripción del Proyecto**: [Aquí proporciona una breve descripción de lo que hace este proyecto y su objetivo principal].
+**Descripción del Proyecto**: Proyecto Dodnde se Busca Analizar la relacion de las canciones mas escuchadas en spotify con los grammys ganados.
 
 ## Requisitos
 
@@ -36,9 +36,15 @@ docker-compose up
 ```bash
 sudo docker run -d --name=postgres -p 5432:5432 -v postgres-volume:/var/lib/postgresql/data -e POSTGRES_PASSWORD=mysecretpass postgres
 ```
-3. 
+3.Debes tener los datos en la base de datos
+- Para la tabla ejecutas el fichero que esta dentro de la carpeta /pruebas
+```bash
+python pruebas/bd_query.py
+```
+-Posterior a eso subes los datos de the_grammy.csv a la base de datos
+5. Luego para iniciar el Pipeline en el navegador tienes que entrar al
  ```bash
-en el navegador tienes que entrar al localhost:8080
+localhost:8080
 ```
 4. Te Logueas con el usuario "airflow" y la contraseña "airflow"
 
