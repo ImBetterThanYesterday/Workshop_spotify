@@ -6,8 +6,8 @@ import json
 db_params = {
     "user": "postgres",
     "password": "mysecretpass",
-    "host": "localhost",
-    "port": "5435",  # El puerto mapeado del contenedor (5435)
+    "host": "127.0.0.1",
+    "port": "5432",  # El puerto mapeado del contenedor (5435)
     "database": "postgres",  # Nombre de la base de datos (por defecto)
 }
 

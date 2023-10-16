@@ -20,7 +20,7 @@ def transform_spotify(**kwargs):
     json_data = json.loads(str_data)
     spotify_df = pd.json_normalize(data=json_data)
     
-    # Spotify transformations
+    # Spotify transformationscd
     spotify_df = pd.json_normalize(data=json_data)
     # Drop Column unnamed
     spotify_df = drop_unnamed_column(spotify_df)
@@ -58,7 +58,7 @@ def read_db():
     logging.info("database read succesfully")
 
     return grammys_df.to_json(orient='records')
-
+read_db()
 def grammys_transform_db(**kwargs):
     ti = kwargs["ti"]
     str_data = ti.xcom_pull(task_ids="read_db")
