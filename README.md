@@ -9,6 +9,8 @@
 - PostgreSQL (ejecutado en un contenedor de Docker)
 - Apache Airflow
 - pip install pydrive2 pandas logging json
+- pip install sqlalchemy psycopg2
+- Puede instalar las dependencias con pip install -r requeriments.txt
 
 ## Estructura del Proyecto
 
@@ -36,8 +38,8 @@ sudo docker run -d --name=postgres -p 5432:5432 -v postgres-volume:/var/lib/post
 ```
 3. 
  ```bash
-en el navegador tienes que entrar al localhost:1080
+en el navegador tienes que entrar al localhost:8080
 ```
 4. Te Logueas con el usuario "airflow" y la contraseña "airflow"
 
-5. 
+5. ejecuta el dag
