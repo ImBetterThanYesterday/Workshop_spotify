@@ -2,7 +2,7 @@ import pandas as pd
 import logging
 import json
 from transform import drop_unnamed_column,borrar_nulos_spotify,crear_columnas_categoricas,  agregando_la_duracion_en_minutos,  borrar_duplicados
-from transform import no_needed_columns,Transform_winner_column,drop_null_rows
+from transform import no_needed_columns,Transform_winner_column,drop_null_rows,delete_nulls
 from  bd_Connection import creating_engine, disposing_engine
 
 
@@ -99,6 +99,8 @@ def merge(**kwargs):
     grammys_df = pd.json_normalize(data=json_data)
 
     df = spotify_df.merge(grammys_df, left_on='track_name', right_on='nominee', how='inner')
+    df=borrar_duplicados()
+    df=delete_nulls()
     
     logging.info( f"data is done to merge")
     return df.to_json(orient='records')

@@ -13,6 +13,12 @@ def drop_null_rows(df):
     return df 
 
 
+def delete_nulls(df):
+    # Elimina todas las filas que contienen al menos un valor nulo
+    df = df.dropna()
+    return df
+
+
 # Spotify Transformation
 
 def ms_to_min(df):
