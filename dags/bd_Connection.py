@@ -5,7 +5,7 @@ from sqlalchemy.orm import sessionmaker
 db_params = {
     "user": "postgres",
     "password": "mysecretpass",
-    "host": "192.168.1.6",
+    "host": "AQUI COLOCA TU IP",
     "port": "5432",  # El puerto mapeado del contenedor (5435)
     "database": "postgres",  # Nombre de la base de datos (por defecto)
 }
