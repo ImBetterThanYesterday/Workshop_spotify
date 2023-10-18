@@ -2,7 +2,7 @@ import pandas as pd
 import logging
 import json
 from transform import drop_unnamed_column,borrar_nulos_spotify,crear_columnas_categoricas,  agregando_la_duracion_en_minutos,  borrar_duplicados
-from transform import no_needed_columns,Transform_winner_column,drop_null_rows
+from transform import no_needed_columns,Transform_winner_column,drop_null_rows,delete_nulls,limpiar_artists
 from  bd_Connection import creating_engine, disposing_engine
 from load_To_Drive import subir_archivo
 
@@ -76,6 +76,8 @@ def grammys_transform_db(**kwargs):
     #borrando registros 
     grammys_df = drop_null_rows(grammys_df)
     #print(grammys_df.columns)
+    # Limpiar artists
+    grammys_df = limpiar_artists(grammys_df)
 
     #print("CSV has ended transformation process")
     #print(grammys_df)
@@ -100,7 +102,7 @@ def merge(**kwargs):
     grammys_df = pd.json_normalize(data=json_data)
     logging.info( f"grammys is entering to the merge function")
     df = spotify_df.merge(grammys_df, left_on='track_name', right_on='nominee', how='inner')
-
+    df=delete_nulls(df)
     logging.info( f"data is done to merge")
     return df.to_json(orient='records')
 
@@ -116,7 +118,7 @@ def load(**kwargs):
 
     #Cerramos la conexion a la db
     disposing_engine(engine)
-    df.to_csv("merged_data3.csv", index=False)
+    df.to_csv("merged_data.csv", index=False)
     logging.info( f"data is done to load")
     return df.to_json(orient='records')
 
