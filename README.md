@@ -43,7 +43,7 @@ docker-compose up
 2. Asegúrate de que Docker esté funcionando y ejecuta el contenedor de PostgreSQL:
 ```bash
 sudo docker run -d --name=postgres -p 5435:5432 -v postgres-volume:/var/lib/postgresql/data -e POSTGRES_PASSWORD=mysecretpass postgres
-c
+```
 3. en su IDE instale las dependencias
 ```bash
  pip install -r requeriments.txt
