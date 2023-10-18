@@ -8,11 +8,11 @@
 - Docker
 - PostgreSQL (ejecutado en un contenedor de Docker)
 - Apache Airflow
-- pip install pydrive2 pandas logging json
+
 
 ## Estructura del Proyecto
 
-- **docker-compose.yml**: Archivo de configuración de Docker Compose para crear y gestionar contenedores Docker.
+- **docker-compose.yml**: Archivo de configuración de Docker Compose para crear y gestionar contenedores Docker de Airflow.
 
 - **/dags**: Contiene los archivos de DAG de Apache Airflow. Los archivos `.py` que orquestan el proceso ETL se encuentran aquí.
 
@@ -22,9 +22,19 @@
 
 - **/plugins**: Esta carpeta puede contener complementos personalizados que amplían la funcionalidad de Apache Airflow.
 
+- **/pruebas**: Esta carpeta contiene alguno de los test a las funciones que puede realizar, sin necesidad de usar airflow.
+
+- **EDA_Grammys.ipynb**: Esta Notebook Contiene el Analisis Exploratorio de el dataset grammys_awards.csv .
+
+- **/EDA_Spotify_Dataset.ipynb**:  Este Notebook Contiene el Analisis Exploratorio de el dataset spotify_dataset.csv .
+
+- **/GRAFICAS.pdf**: Este PDF Contiene El Dashboard de las Graficas realizadas con PowerBi.
+
+- **/requeriments.txt**: Este txt contiene Las Dependencias Necesesarias para correr el Proyecto.
+
 ## Ejecución del Proyecto
 
-1. Asegúrate de que Docker esté funcionando  el contenedor de Airflow:
+1. Asegúrate de que Docker esté funcionando y ejecutamos el contenedor de Airflow:
 
 ```bash
 docker-compose up 
@@ -32,12 +42,57 @@ docker-compose up
 
 2. Asegúrate de que Docker esté funcionando y ejecuta el contenedor de PostgreSQL:
 ```bash
-sudo docker run -d --name=postgres -p 5432:5432 -v postgres-volume:/var/lib/postgresql/data -e POSTGRES_PASSWORD=mysecretpass postgres
+sudo docker run -d --name=postgres -p 5435:5432 -v postgres-volume:/var/lib/postgresql/data -e POSTGRES_PASSWORD=mysecretpass postgres
 ```
-3. 
+3. en su IDE instale las dependencias
+    ```bash
+ pip install -r requeriments.txt
+ # tambien puede hacer 
+ pip install pydrive2 
+ pip install pandas
+ pip install logging 
+ pip install json
+ pip install psycopg2
+ pip install sqlalchemy
+```
+## Prepara la Base De Datos:
+4. Debes Crear la tabla y subir los datos a la base de datos ejecutando el archivo pruebas/bd_query.py
  ```bash
-en el navegador tienes que entrar al localhost:1080
+python pruebas/bd_query.py
 ```
-4. Te Logueas con el usuario "airflow" y la contraseña "airflow"
 
-5. 
+5.Para que el contenedor de airflow y postgres se puedan comunicar, Debes ir al fichero /dags/bd_Connection.py (linea 8). Y  reemplazar el host por tu ip
+   ```bash
+db_params = {
+    "user": "postgres",
+    "password": "mysecretpass",
+    "host": "AQUI DEBES PONER TU IP ",
+    "port": "5435",  # El puerto mapeado del contenedor (5435)
+    "database": "postgres",  # Nombre de la base de datos (por defecto)
+}
+```
+6.La ip la puedes ver ipconfig , ifconfig dependiendo si estas en windows , linux o mac.
+ ```bash
+ipconfig #windows
+ifconfig #linux y mac
+```
+7. ## Si quieres Configurar la subida del dataset final a Google Drive, Sigue estos Pasos, si no obvialos.
+     7.1 Ve a la Documentación y sigue los Pasos en la Sección Load_To_Drive.
+     7.2 Debes borrar los archivos client_secrets.json,credentials_module.json y remplazarlos por los tuyos.
+     7.3 en el fichero etl.py debes remplazar en la linea 135 el id de tu carpeta de Google Drive.
+      ```bash
+          id_folder="AQUI PONES EL ID DE TU FOLDER"
+      ```
+ ## ojo 
+ **Si no Hiciste el Paso 7, para que te corra el Proyecto, debes comentar las siguientes lineas.**
+
+ - **etl.py**:  Debes comentar la linea 7 **from load_To_Drive import subir_archivo** y la linea 136 **subir_archivo(ruta_archivo,id_folder)**
+
+## Entramos a Airflow
+8. en el navegador tienes que entrar al:
+ ```bash
+ localhost:1080
+```
+9. Te Logueas con el usuario "airflow" y la contraseña "airflow".
+
+10. Activas el Dag y Le Das a la Flecha Para Para comenzar el Pipeline.
