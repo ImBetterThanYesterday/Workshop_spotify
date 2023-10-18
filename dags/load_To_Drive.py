@@ -30,4 +30,3 @@ def subir_archivo(ruta_archivo,id_folder):
     archivo.SetContentFile(ruta_archivo)
     archivo.Upload()
 
-

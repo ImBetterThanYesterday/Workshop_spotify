@@ -1,116 +1,69 @@
 import psycopg2
+import pandas as pd
+
 # Parámetros de conexión
 db_params = {
-    "host": "localhost",          # La dirección IP o el nombre de host del contenedor
-    "port": "5435",               # El puerto mapeado del contenedor (5435)
-    "database": "postgres",       # Nombre de la base de datos (por defecto)
-    "user": "postgres",           # Usuario de la base de datos
-    "password": "mysecretpass",   # Contraseña del usuario
+    "host": "localhost",
+    "port": "5432",
+    "database": "postgres",
+    "user": "postgres",
+    "password": "mysecretpass",
 }
+
+# Nombre de la tabla en la base de datos
+table_name = "grammys"
+
+# Ruta al archivo CSV que deseas cargar
+csv_file_path = "C:/Users/Juanchope/IdeaProjects/Workshop_spotify/dags/the_grammy_awards.csv"  # Reemplaza con la ruta de tu archivo CSV
 
 # Intentar conectarse a la base de datos
 try:
     connection = psycopg2.connect(**db_params)
     cursor = connection.cursor()
 
-    # Ejecutar consultas aquí
-    cursor.execute("SELECT version();")
-    version = cursor.fetchone()
-    print("Conexión exitosa a PostgreSQL:", version)
+    # Verificar si la tabla existe
+    cursor.execute(f"SELECT EXISTS (SELECT 1 FROM information_schema.tables WHERE table_name = '{table_name}');")
+    table_exists = cursor.fetchone()[0]
 
-    create_table_query = """
-    CREATE TABLE IF NOT EXISTS grammys (
-    year INTEGER,
-    title varchar,
-    published_at varchar,
-    updated_at varchar,
-    nominee varchar,
-    artist varchar,
-    workers varchar,
-    img varchar,
-    winner varchar 
-    );
-    """
-    cursor.execute(create_table_query)
-    connection.commit()
-    
-    #creando tabla merge 
-    create_table_query = """
-    CREATE TABLE IF NOT EXISTS merged (
-    track_id varchar,
-    artists varchar,
-    album_name varchar,
-    track_name varchar,
-    popularity INTEGER,
-    duration_ms INTEGER,
-    explicit BOOLEAN,
-    danceability FLOAT,
-    energy FLOAT,
-    key INTEGER,
-    loudness FLOAT,
-    mode INTEGER,
-    speechiness FLOAT,
-    acousticness FLOAT,
-    instrumentalness varchar,
-    liveness FLOAT,
-    valence FLOAT,
-    tempo FLOAT,
-    time_signature INTEGER,
-    track_genre varchar,
-    duration_min FLOAT,
-    danceability_category varchar,
-    energy_category varchar,
-    valence_category varchar,
-    popularity_category varchar,
-    duration_categorys varchar,
-    year INTEGER,
-    category varchar,
-    nominee varchar,
-    artist varchar,
-    winner INTEGER 
-    );
-    """
-    cursor.execute(create_table_query)
-    connection.commit()
+    # Si la tabla no existe, créala
+    if not table_exists:
+        create_table_query = f"""
+        CREATE TABLE {table_name} (
+            year INTEGER,
+            title VARCHAR,
+            published_at VARCHAR,
+            updated_at VARCHAR,
+            nominee VARCHAR,
+            artist VARCHAR,
+            workers VARCHAR,
+            img VARCHAR,
+            winner VARCHAR
+        );
+        """
+        cursor.execute(create_table_query)
+        connection.commit()
+        print(f"Tabla '{table_name}' creada.")
 
-    # Consultar el catálogo information_schema para obtener las tablas
-    cursor.execute("SELECT table_name FROM information_schema.tables WHERE table_schema='public'")
-    tables = cursor.fetchall()
-
-    # Imprimir las tablas
-    print("Tablas en la base de datos:")
-    for table in tables:
-        print(table[0])
-        
-    #table_to_delete = "awards"
-    #cursor.execute("DROP TABLE Applicants_def")
-
-    # Intenta conectarte a la base de datos
-    connection = psycopg2.connect(**db_params)
-    cursor = connection.cursor()
-
-    # Realiza la consulta SELECT
-    cursor.execute("SELECT * FROM grammys")
-
-    # Recupera todos los registros
-    records = cursor.fetchall()
-
-    # Imprime los registros
-    for record in records:
-        print(record)
-
-
-
-
- 
-
+    # Cargar datos desde el archivo CSV
+    df = pd.read_csv(csv_file_path)
+    print(df)
+    df.to_sql(table_name, connection, if_exists='replace', index=False)
+    print(f'Datos cargados en la tabla {table_name}')
 
     # Confirmar los cambios
     connection.commit()
+
+    # Consultar la tabla para verificar la carga
+    cursor.execute(f"SELECT * FROM {table_name}")
+    records = cursor.fetchall()
+
+    # Imprimir los registros
+    for record in records:
+        print(record)
 
     # Cerrar la conexión
     cursor.close()
     connection.close()
 
 except Exception as e:
-    print("Error de conexión:", e)
+    print("Error de conexión o carga de datos:", e)

@@ -1,13 +1,12 @@
 from sqlalchemy import create_engine
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.orm import sessionmaker
-import json
 
 db_params = {
     "user": "postgres",
     "password": "mysecretpass",
-    "host": "localhost",
-    "port": "5435",  # El puerto mapeado del contenedor (5435)
+    "host": "192.168.1.6",
+    "port": "5432",  # El puerto mapeado del contenedor (5435)
     "database": "postgres",  # Nombre de la base de datos (por defecto)
 }
 
