@@ -1,7 +1,7 @@
 import pandas as pd
 #def change_categories(df):
 def no_needed_columns(df):
-    df.drop(['img', 'title', 'published_at', 'updated_at', 'workers'], axis=1, inplace=True)
+    df.drop(['img', 'title', 'published_at','artist', 'updated_at', 'workers'], axis=1, inplace=True)
     return df
 
 def Transform_winner_column(df):
