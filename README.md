@@ -47,7 +47,9 @@ sudo docker run -d --name=postgres -p 5435:5432 -v postgres-volume:/var/lib/post
 3. en su IDE instale las dependencias
 ```bash
  pip install -r requeriments.txt
- # tambien puede hacer 
+```
+- tambien puede hacer 
+```bash
  pip install pydrive2 
  pip install pandas
  pip install logging 
