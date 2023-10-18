@@ -77,9 +77,10 @@ ipconfig #windows
 ifconfig #linux y mac
 ```
 ## Si quieres Configurar la subida del dataset final a Google Drive, Sigue estos Pasos, si no obvialos.
-7.Ve a la Documentación y sigue los Pasos en la Sección Load_To_Drive.
-7.2 Debes borrar los archivos client_secrets.json,credentials_module.json y remplazarlos por los tuyos.
-7.3 en el fichero etl.py debes remplazar en la linea 135 el id de tu carpeta de Google Drive.
+7. Configurando Google Drive Api
+- Debes borrar los archivos client_secrets.json,credentials_module.json y remplazarlos por los tuyos.
+- en el fichero etl.py debes remplazar en la linea 135 el id de tu carpeta de Google Drive.
+- Ve a la Documentación y sigue los Pasos en la Sección Load_To_Drive.
 ```bash
 id_folder="AQUI PONES EL ID DE TU FOLDER"
 ```
