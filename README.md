@@ -1,6 +1,6 @@
 # Workshop_spotify
 
-**Descripción del Proyecto**: [Aquí proporciona una breve descripción de lo que hace este proyecto y su objetivo principal].
+**Descripción del Proyecto**: "Este proyecto combina un dataset de Spotify con información detallada sobre canciones, incluyendo características como tempo, energía y popularidad, con un conjunto de datos de los premios Grammy que contiene información sobre las canciones y artistas galardonados a lo largo de los años. El objetivo de este proyecto es analizar la relación entre las características musicales de las canciones, su éxito en términos de reproducciones y premios Grammy, identificando patrones y tendencias que puedan arrojar luz sobre los criterios de selección de los ganadores de estos prestigiosos premios y su relación con las preferencias del público.".
 
 ## Requisitos
 
@@ -76,13 +76,13 @@ db_params = {
 ipconfig #windows
 ifconfig #linux y mac
 ```
-7. ## Si quieres Configurar la subida del dataset final a Google Drive, Sigue estos Pasos, si no obvialos.
-     7.1 Ve a la Documentación y sigue los Pasos en la Sección Load_To_Drive.
-     7.2 Debes borrar los archivos client_secrets.json,credentials_module.json y remplazarlos por los tuyos.
-     7.3 en el fichero etl.py debes remplazar en la linea 135 el id de tu carpeta de Google Drive.
-      ```bash
-          id_folder="AQUI PONES EL ID DE TU FOLDER"
-      ```
+## Si quieres Configurar la subida del dataset final a Google Drive, Sigue estos Pasos, si no obvialos.
+7.Ve a la Documentación y sigue los Pasos en la Sección Load_To_Drive.
+7.2 Debes borrar los archivos client_secrets.json,credentials_module.json y remplazarlos por los tuyos.
+7.3 en el fichero etl.py debes remplazar en la linea 135 el id de tu carpeta de Google Drive.
+```bash
+id_folder="AQUI PONES EL ID DE TU FOLDER"
+```
  ## ojo 
  **Si no Hiciste el Paso 7, para que te corra el Proyecto, debes comentar las siguientes lineas.**
 
@@ -95,4 +95,4 @@ ifconfig #linux y mac
 ```
 9. Te Logueas con el usuario "airflow" y la contraseña "airflow".
 
-10. Activas el Dag y Le Das a la Flecha Para Para comenzar el Pipeline.
+10. Activas el Dag dandole al slide y Le das a la flecha Para Para comenzar el Pipeline.
