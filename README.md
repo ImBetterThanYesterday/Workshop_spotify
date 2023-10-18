@@ -98,7 +98,7 @@ id_folder="AQUI PONES EL ID DE TU FOLDER"
 ## Entramos a Airflow
 8. en el navegador tienes que entrar al:
  ```bash
- localhost:1080
+ localhost:8080
 ```
 9. Te Logueas con el usuario "airflow" y la contraseña "airflow".
 
