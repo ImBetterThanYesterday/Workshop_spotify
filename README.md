@@ -36,7 +36,7 @@
 
 1.Clone el repositorio 
 ```bash
-docker-compose up https://github.com/ImBetterThanYesterday/Workshop_spotify.git
+https://github.com/ImBetterThanYesterday/Workshop_spotify.git
 ```
 2. Asegúrate de que Docker esté funcionando y ejecutamos el contenedor de Airflow:
 
