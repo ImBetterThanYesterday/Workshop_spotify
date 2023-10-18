@@ -12,6 +12,14 @@ def drop_null_rows(df):
     df.drop([2261,2359,2454,2547,4525,4573], axis=0, inplace=True)
     return df 
 
+def limpiar_artists(df):
+    # Dividir la columna en función de ';'
+    df["artists"] = df["artists"].str.split(';').str[0]
+    return df
+def delete_nulls(df):
+    # Elimina todas las filas que contienen al menos un valor nulo
+    df = df.dropna()
+    return df
 
 # Spotify Transformation
 
